@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage__accountName": "<STORAGE_ACCOUNT_NAME>",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "BlobStorage__serviceUri": "<BLOB_STORAGE_URL>",
+    "BlobName": "events/{0}/{1}.csv",
+    "EventGridEndpoint": "<EVENT_GRID_ENDPOINT>",
+    "EventGridKey": "<EVENT_GRID_KEY>"
+  }
+}

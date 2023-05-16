@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="..\..\..\..\..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Azure.Messaging.EventGrid" Version="4.14.1" />
+		<PackageReference Include="Microsoft.Azure.Relay" Version="2.0.15596" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\Integration.Realtime.Common\Integration.Realtime.Common.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="appSettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+</Project>

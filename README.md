@@ -12,6 +12,7 @@ This repo provides sample code and documentation related to Dynamics 365 Custome
 ## Related resources
 
 - [Code of conduct](/CODE_OF_CONDUCT.md)
+  - [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct)
 - [Contributing](/CONTRIBUTING.md)
 - [License](/LICENSE)
 - [Reporting security issues](/SECURITY.md)
