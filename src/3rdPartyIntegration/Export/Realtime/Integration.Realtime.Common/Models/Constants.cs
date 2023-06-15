@@ -107,5 +107,20 @@ namespace Integration.Realtime.Common.Models
         /// Represents the attribute name of the wrapup initiated on
         /// </summary>
         public const string AttributesWrapupInitiatedOn = "msdyn_wrapupinitiatedon";
+
+        /// <summary>
+        /// Represents the node name of the agent accept incoming work post image.
+        /// </summary>
+        public const string AgentAcceptIncomingWorkImageNode = "AAIWPostImage";
+
+        /// <summary>
+        /// Represents the attribute name of agent accepted.
+        /// </summary>
+        public const string AttributeAgentAccepted = "msdyn_isagentaccepted";
+
+        /// <summary>
+        /// Represents the attribute name of started on
+        /// </summary>
+        public const string AttributeStartedOn= "msdyn_startedon";
     }
 }

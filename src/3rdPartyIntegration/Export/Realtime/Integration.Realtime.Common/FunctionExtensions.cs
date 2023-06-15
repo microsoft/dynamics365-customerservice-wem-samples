@@ -172,5 +172,61 @@ namespace Integration.Realtime.Common
                 EventDelayInMs = Helpers.GetTimeDifferenceInMs(DateTime.UtcNow, wrapUpInitiatedOn),
             };
         }
+
+        /// <summary>
+        /// Converts a step event to an agent after contact event.
+        /// </summary>
+        /// <param name="stepEvent">The step event to convert.</param>
+        /// <returns>An instance of <see cref="AgentAcceptedIncomingWorkEvent"/> representing the converted event.</returns>
+        public static AgentAcceptedIncomingWorkEvent ToAgentAcceptIncomingWorkEvent(this StepEvent stepEvent)
+        {
+            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentAcceptIncomingWorkImageNode);
+            if (postImage.Key == null)
+            {
+                return null;
+            }
+
+            // Check if agent accepted incoming work
+            var agentAccepted = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributeAgentAccepted).Value;
+            if (string.IsNullOrWhiteSpace(agentAccepted) || agentAccepted != "Yes")
+            {
+                return null;
+            }
+
+            // channel
+            var channel = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesChannel).Value;
+            if (string.IsNullOrWhiteSpace(channel))
+            {
+                channel = "Unknown";
+            }
+
+            // Agent name
+            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesActiveAgentId).Value;
+            if (string.IsNullOrWhiteSpace(agentName))
+            {
+                agentName = "Unknown";
+            }
+
+            // After work initiated on
+            var startedOnString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributeStartedOn).Value;
+            DateTime? startedOn = !string.IsNullOrWhiteSpace(startedOnString) ?
+                                   DateTime.Parse(
+                                       startedOnString,
+                                       CultureInfo.InvariantCulture,
+                                       System.Globalization.DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal) :
+                                   null;
+
+            return new AgentAcceptedIncomingWorkEvent
+            {
+                BusinessUnitId = stepEvent.BusinessUnitId,
+                OrganizationId = stepEvent.OrganizationId,
+                OrganizationName = stepEvent.OrganizationName,
+                OperationCreatedOn = stepEvent.OperationCreatedOn,
+                AgentName = agentName,
+                Channel = channel,
+                StartedOn = startedOn,
+                EventDelayInMs = Helpers.GetTimeDifferenceInMs(DateTime.UtcNow, startedOn),
+            };
+        }
     }
 }

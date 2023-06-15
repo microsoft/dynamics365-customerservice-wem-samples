@@ -1,11 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Integration.Realtime.Common;
 using Integration.Realtime.Common.Models;
@@ -21,19 +17,19 @@ namespace Integration.Realtime.Webhook.Functions
     /// <summary>
     /// Represents the Azure Function that handles agent after work event.
     /// </summary>
-    public class AgentAfterWorkEvent : FunctionBase
+    public class AgentAfterWorkFunction : FunctionBase
     {
         private readonly IBlobOutput blobOutput;
         private readonly IEventGridOutput eventGridOutput;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AgentAfterWorkEvent"/> class.
+        /// Initializes a new instance of the <see cref="AgentAfterWorkFunction"/> class.
         /// </summary>
         /// <param name="serializerSettings">The Json serializer settings.</param>
         /// <param name="settingsOption">The option set for service settings.</param>
         /// <param name="blobOutput">The blob outputter.</param>
         /// <param name="eventGridOutput">The event grid outputter.</param>
-        public AgentAfterWorkEvent(
+        public AgentAfterWorkFunction(
             JsonSerializerSettings serializerSettings,
             IBlobOutput blobOutput,
             IEventGridOutput eventGridOutput)
@@ -50,7 +46,7 @@ namespace Integration.Realtime.Webhook.Functions
         /// <param name="binder">The output binder.</param>
         /// <param name="logger">The logger.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        [FunctionName("AgentAfterWorkFunction")]
+        [FunctionName("AgentAfterWork")]
         public async Task AgentAfterWorkInitiated(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             Binder binder,

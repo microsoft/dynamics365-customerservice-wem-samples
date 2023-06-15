@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace Integration.Realtime.Common.Models
 {
     /// <summary>
-    /// Represents an event that denotes a agent after work event.
+    /// Represents an event that denotes an agent accepted incoming work item event.
     /// </summary>
-    public class AgentAfterWorkEvent : PropagationEventBase
+    public class AgentAcceptedIncomingWorkEvent : PropagationEventBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AgentAfterWorkEvent"/> class.
+        /// Initializes a new instance of the <see cref="AgentAcceptedIncomingWorkEvent"/> class.
         /// </summary>
-        public AgentAfterWorkEvent()
+        public AgentAcceptedIncomingWorkEvent()
             : base()
         {
         }
@@ -30,14 +30,19 @@ namespace Integration.Realtime.Common.Models
         /// <summary>
         /// Gets or sets the status.
         /// </summary>
-        public string Status { get; set; }
+        public string IsAgentAccepted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the channel.
+        /// </summary>
+        public string Channel { get; set; }
 
         /// <summary>
         /// Gets or sets the timestamp in UTC when the wrap-up initiated.
         /// </summary>
-        public DateTime? WrapUpInitiatedOn { get; set; }
+        public DateTime? StartedOn { get; set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{Status} initiated by {AgentName} on {WrapUpInitiatedOn}";
+        public override string ToString() => $"{AgentName} accepted incoming {Channel} on {StartedOn}";
     }
 }
