@@ -47,5 +47,65 @@ namespace Integration.Realtime.Common.Models
         /// Represents the setting for event grid key setting.
         /// </summary>
         public const string SettingsEventGridKeySetting = "EventGridKey";
+
+        /// <summary>
+        /// Represents the key of the agent conference mode image node.
+        /// </summary>
+        public const string AgentConferenceModeImage = "CMWPostImage";
+
+        /// <summary>
+        /// Represents the key of the agent mode.
+        /// </summary>
+        public const string AttributesMode = "msdyn_mode";
+
+        /// <summary>
+        /// Represents the value of agent mode 'consult'.
+        /// </summary>
+        public const string AttributeModeConsult = "Consult";
+
+        /// <summary>
+        /// Represents the attribute name of the owner id.
+        /// </summary>
+        public const string AttributesOwnerId = "msdyn_ownerid";
+
+        /// <summary>
+        /// Represents the attribute name of the created on.
+        /// </summary>
+        public const string AttributesCreatedOn = "createdon";
+
+        /// <summary>
+        /// Represents the attribute name of the agent after work image node.
+        /// </summary>
+        public const string AgentAfterWorkImage = "AAWPostImage";
+
+        /// <summary>
+        /// Represents the attribute name of the channel
+        /// </summary>
+        public const string AttributesChannel = "msdyn_channel";
+
+        /// <summary>
+        /// Represents the value of channel attribute.
+        /// </summary>
+        public const string AttributesChannelVoiceCall = "; Voice call;";
+
+        /// <summary>
+        /// Represents the attribute name of the statuscode;
+        /// </summary>
+        public const string AttributesStatusCode = "statuscode";
+
+        /// <summary>
+        /// Represents the value of statuscode attribute
+        /// </summary>
+        public const string AttributesStatusCodeWrapup = "Wrap-up";
+
+        /// <summary>
+        /// Represents the attribute name of the active agent id.
+        /// </summary>
+        public const string AttributesActiveAgentId = "msdyn_activeagentid";
+
+        /// <summary>
+        /// Represents the attribute name of the wrapup initiated on
+        /// </summary>
+        public const string AttributesWrapupInitiatedOn = "msdyn_wrapupinitiatedon";
     }
 }
