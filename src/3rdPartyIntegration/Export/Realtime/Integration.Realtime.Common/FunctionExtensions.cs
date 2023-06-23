@@ -4,8 +4,6 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using Integration.Realtime.Common.Models;
 
 namespace Integration.Realtime.Common
@@ -47,7 +45,6 @@ namespace Integration.Realtime.Common
                                         CultureInfo.InvariantCulture,
                                         System.Globalization.DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal) :
                                     null;
-
             return new AgentStatusEvent
             {
                 BusinessUnitId = stepEvent.BusinessUnitId,
@@ -126,13 +123,6 @@ namespace Integration.Realtime.Common
         {
             var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentAfterWorkImage);
             if (postImage.Key == null)
-            {
-                return null;
-            }
-
-            // Check is voice channel
-            var channel = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesChannel).Value;
-            if (string.IsNullOrWhiteSpace(channel) || channel != Constants.AttributesChannelVoiceCall)
             {
                 return null;
             }

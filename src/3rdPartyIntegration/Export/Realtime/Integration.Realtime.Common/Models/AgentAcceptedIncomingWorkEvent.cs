@@ -43,6 +43,6 @@ namespace Integration.Realtime.Common.Models
         public DateTime? StartedOn { get; set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{AgentName} accepted incoming {Channel} on {StartedOn}";
+        public override string ToString() => $"{AgentName} accepted incoming {Channel} on {StartedOn}. [Org: {OrganizationName}. EventDelay:{EventDelayInMs}ms]";
     }
 }

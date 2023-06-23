@@ -2,10 +2,6 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Integration.Realtime.Common.Models
 {
@@ -38,6 +34,6 @@ namespace Integration.Realtime.Common.Models
         public DateTime? WrapUpInitiatedOn { get; set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{Status} initiated by {AgentName} on {WrapUpInitiatedOn}";
+        public override string ToString() => $"{Status} initiated by {AgentName} on {WrapUpInitiatedOn}. [Org: {OrganizationName}. EventDelay:{EventDelayInMs}ms]";
     }
 }

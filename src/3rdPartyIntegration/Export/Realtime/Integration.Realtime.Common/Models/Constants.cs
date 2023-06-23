@@ -89,12 +89,12 @@ namespace Integration.Realtime.Common.Models
         public const string AttributesChannelVoiceCall = "; Voice call;";
 
         /// <summary>
-        /// Represents the attribute name of the statuscode;
+        /// Represents the attribute name of the statuscode.
         /// </summary>
         public const string AttributesStatusCode = "statuscode";
 
         /// <summary>
-        /// Represents the value of statuscode attribute
+        /// Represents the value of statuscode attribute.
         /// </summary>
         public const string AttributesStatusCodeWrapup = "Wrap-up";
 
@@ -104,7 +104,7 @@ namespace Integration.Realtime.Common.Models
         public const string AttributesActiveAgentId = "msdyn_activeagentid";
 
         /// <summary>
-        /// Represents the attribute name of the wrapup initiated on
+        /// Represents the attribute name of the wrapup initiated on.
         /// </summary>
         public const string AttributesWrapupInitiatedOn = "msdyn_wrapupinitiatedon";
 
@@ -121,6 +121,6 @@ namespace Integration.Realtime.Common.Models
         /// <summary>
         /// Represents the attribute name of started on
         /// </summary>
-        public const string AttributeStartedOn= "msdyn_startedon";
+        public const string AttributeStartedOn = "msdyn_startedon";
     }
 }

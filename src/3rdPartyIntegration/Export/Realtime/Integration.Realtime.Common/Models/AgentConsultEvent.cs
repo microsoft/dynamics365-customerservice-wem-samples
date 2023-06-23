@@ -38,6 +38,6 @@ namespace Integration.Realtime.Common.Models
         public DateTime? JoinedOn { get; set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"Initiated by {InitiatingAgentName}, joined by {JoinedAgentName} on {JoinedOn}";
+        public override string ToString() => $"Consult session initiated by {InitiatingAgentName}, joined by {JoinedAgentName} on {JoinedOn}. [Org: {OrganizationName}. EventDelay:{EventDelayInMs}ms]";
     }
 }

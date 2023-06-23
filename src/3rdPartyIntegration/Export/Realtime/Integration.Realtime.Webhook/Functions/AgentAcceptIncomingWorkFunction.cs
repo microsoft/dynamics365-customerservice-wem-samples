@@ -73,13 +73,13 @@ namespace Integration.Realtime.Webhook.Functions
                 return;
             }
 
-            var agentAfterWorkEvent = stepEvent.ToAgentAcceptIncomingWorkEvent();
+            var agentAcceptIncomingWorkEvent = stepEvent.ToAgentAcceptIncomingWorkEvent();
 
             // Blob output task
-            var blobTask = Task.Run(async () => await blobOutput.WriteEvent(agentAfterWorkEvent, binder));
+            var blobTask = Task.Run(async () => await blobOutput.WriteEvent(agentAcceptIncomingWorkEvent, binder));
 
             // Event Grid output task
-            var eventGridTask = Task.Run(async () => await eventGridOutput.WriteEvent(agentAfterWorkEvent, binder));
+            var eventGridTask = Task.Run(async () => await eventGridOutput.WriteEvent(agentAcceptIncomingWorkEvent, binder));
 
             // Wait for both tasks to complete
             await Task.WhenAll(blobTask, eventGridTask);

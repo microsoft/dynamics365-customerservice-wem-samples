@@ -36,8 +36,8 @@ namespace Integration.Realtime.Client
 
             var tokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(settings.SasKeyName, settings.SasKey);
             var listener = new HybridConnectionListener(
-                new Uri(string.Format(CultureInfo.InvariantCulture, "sb://{0}/{1}", settings.RelayNamespace, settings.HybridConnectionName)),
-                tokenProvider);
+                 new Uri(string.Format(CultureInfo.InvariantCulture, "sb://{0}/{1}", settings.RelayNamespace, settings.HybridConnectionName)),
+                 tokenProvider);
 
             Console.WriteLine("Press Enter to exit.");
 
@@ -67,8 +67,7 @@ namespace Integration.Realtime.Client
                         return;
                     }
 
-                    var statusEvent = cloudEvent.Data.ToObjectFromJson<AgentStatusEvent>();
-                    DisplayEventDetails(statusEvent);
+                    DisplayEventMessage(cloudEvent);
                 }
 
                 // Do something with context.Request.Url, HttpMethod, Headers, InputStream...
@@ -117,11 +116,40 @@ namespace Integration.Realtime.Client
             return settings;
         }
 
-        private static void DisplayEventDetails(params AgentStatusEvent[] statusEvents)
+        private static void DisplayEventMessage(CloudEvent cloudEvent)
         {
-            foreach (var statusEvent in statusEvents)
+            switch (cloudEvent.Type)
             {
-                Console.WriteLine($"{statusEvent.AgentName} changed to '{statusEvent.AgentStatus}' at zulu {statusEvent.StatusChangeTime}. [Org: {statusEvent.OrganizationName}. EventDelay:{statusEvent.EventDelayInMs}ms]");
+                case "AgentStatusEvent":
+                {
+                    var data = cloudEvent.Data.ToObjectFromJson<AgentStatusEvent>();
+                    Console.WriteLine(data.ToString());
+                    break;
+                }
+
+                case "AgentAfterWorkEvent":
+                {
+                    var agentAfterWorkEventData = cloudEvent.Data.ToObjectFromJson<AgentAfterWorkEvent>();
+                    Console.WriteLine(agentAfterWorkEventData.ToString());
+                    break;
+                }
+
+                case "AgentAcceptedIncomingWorkEvent":
+                {
+                    var agentAcceptedIncomingWorkEventData = cloudEvent.Data.ToObjectFromJson<AgentAcceptedIncomingWorkEvent>();
+                    Console.WriteLine(agentAcceptedIncomingWorkEventData.ToString());
+                    break;
+                }
+
+                case "AgentConsultEvent":
+                {
+                    var agentConsultEventData = cloudEvent.Data.ToObjectFromJson<AgentConsultEvent>();
+                    Console.WriteLine(agentConsultEventData.ToString());
+                    break;
+                }
+
+                default:
+                    throw new InvalidOperationException("Invalid Agent event..");
             }
         }
     }
