@@ -66,7 +66,7 @@ namespace Integration.Realtime.Common.Models
         /// <summary>
         /// Represents the attribute name of the owner id.
         /// </summary>
-        public const string AttributesOwnerId = "msdyn_ownerid";
+        public const string AttributesOwnerId = "ownerid";
 
         /// <summary>
         /// Represents the attribute name of the created on.
