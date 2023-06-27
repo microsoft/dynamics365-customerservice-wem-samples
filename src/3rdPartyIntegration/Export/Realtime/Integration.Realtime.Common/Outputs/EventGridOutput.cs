@@ -36,15 +36,15 @@ namespace Integration.Realtime.Common.Outputs
         {
             var cloudEvent = new CloudEvent(
                 propagationEvent.OrganizationName,
-                propagationEvent.EventName,
+                propagationEvent.EventFullName,
                 propagationEvent);
 
             var outputeventGridAttributes = new Attribute[]
                {
                     new EventGridAttribute()
                     {
-                        TopicEndpointUri = Constants.SettingsEventGridEndpointSetting,
-                        TopicKeySetting = Constants.SettingsEventGridKeySetting,
+                        TopicEndpointUri = Constants.SettingConstants.SettingsEventGridEndpointSetting,
+                        TopicKeySetting = Constants.SettingConstants.SettingsEventGridKeySetting,
                     },
                };
 

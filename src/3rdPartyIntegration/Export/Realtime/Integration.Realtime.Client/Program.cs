@@ -7,10 +7,10 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Azure.Messaging;
-using Integration.Realtime.Common.Models;
 using Microsoft.Azure.Relay;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Integration.Realtime.Client
 {
@@ -118,42 +118,9 @@ namespace Integration.Realtime.Client
 
         private static void DisplayEventMessage(CloudEvent cloudEvent)
         {
-            switch (cloudEvent.Type)
-            {
-                case "AgentStatusEvent":
-                {
-                    var data = cloudEvent.Data.ToObjectFromJson<AgentStatusEvent>();
-                    Console.WriteLine(data.ToString());
-                    break;
-                }
-
-                case "AgentAfterWorkEvent":
-                {
-                    var agentAfterWorkEventData = cloudEvent.Data.ToObjectFromJson<AgentAfterWorkEvent>();
-                    Console.WriteLine(agentAfterWorkEventData.ToString());
-                    break;
-                }
-
-                case "AgentAcceptedIncomingWorkEvent":
-                {
-                    var agentAcceptedIncomingWorkEventData = cloudEvent.Data.ToObjectFromJson<AgentAcceptedIncomingWorkEvent>();
-                    Console.WriteLine(agentAcceptedIncomingWorkEventData.ToString());
-                    break;
-                }
-
-                case "AgentConsultEvent":
-                {
-                    var agentConsultEventData = cloudEvent.Data.ToObjectFromJson<AgentConsultEvent>();
-                    Console.WriteLine(agentConsultEventData.ToString());
-                    break;
-                }
-
-                default:
-                {
-                    Console.WriteLine($"Invalid event type: {cloudEvent.Type}");
-                    break;
-                }
-            }
+            var type = Type.GetType(cloudEvent.Type);
+            var data = JsonConvert.DeserializeObject(cloudEvent.Data.ToString(), type);
+            Console.WriteLine(data);
         }
     }
 }

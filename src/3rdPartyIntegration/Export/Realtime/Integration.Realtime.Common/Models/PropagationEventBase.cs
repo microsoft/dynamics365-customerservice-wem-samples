@@ -19,5 +19,10 @@ namespace Integration.Realtime.Common.Models
         /// Gets the name for this event.
         /// </summary>
         public virtual string EventName => GetType().Name;
+
+        /// <summary>
+        /// Gets the full name for this event.
+        /// </summary>
+        public virtual string EventFullName => GetType().FullName;
     }
 }
