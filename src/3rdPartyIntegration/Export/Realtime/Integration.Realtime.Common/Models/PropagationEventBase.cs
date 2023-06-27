@@ -23,6 +23,6 @@ namespace Integration.Realtime.Common.Models
         /// <summary>
         /// Gets the full name for this event.
         /// </summary>
-        public virtual string EventFullName => GetType().FullName;
+        public virtual string EventFullName => GetType().AssemblyQualifiedName;
     }
 }

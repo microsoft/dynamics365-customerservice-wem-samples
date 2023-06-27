@@ -118,9 +118,11 @@ namespace Integration.Realtime.Client
 
         private static void DisplayEventMessage(CloudEvent cloudEvent)
         {
-            var type = Type.GetType(cloudEvent.Type);
-            var data = JsonConvert.DeserializeObject(cloudEvent.Data.ToString(), type);
-            Console.WriteLine(data);
+            // Get event type
+            var eventType = Type.GetType(cloudEvent.Type);
+            // Deserialize data using event type
+            var eventData = JsonConvert.DeserializeObject(cloudEvent.Data.ToString(), eventType);
+            Console.WriteLine(eventData);
         }
     }
 }
