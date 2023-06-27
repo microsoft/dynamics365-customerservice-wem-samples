@@ -20,25 +20,25 @@ namespace Integration.Realtime.Common
         /// <returns>An instance of <see cref="AgentStatusEvent"/> representing the converted event.</returns>
         public static AgentStatusEvent ToAgentStatusEvent(this StepEvent stepEvent)
         {
-            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentStatusHistoryImage);
+            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == PostImageNodes.AgentStatusHistoryImage);
             if (postImage.Key == null)
             {
                 return null;
             }
 
-            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesAgentId).Value;
+            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.AgentId).Value;
             if (string.IsNullOrWhiteSpace(agentName))
             {
-                agentName = "Unknown";
+                agentName = Constants.Unknown;
             }
 
-            var agentStatus = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesPresenceId).Value;
+            var agentStatus = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.PresenceId).Value;
             if (string.IsNullOrWhiteSpace(agentStatus))
             {
-                agentStatus = "Unknown";
+                agentStatus = Constants.Unknown;
             }
 
-            var startTimeString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesStartTime).Value;
+            var startTimeString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.StartTime).Value;
             DateTime? startTime = !string.IsNullOrWhiteSpace(startTimeString) ?
                                     DateTime.Parse(
                                         startTimeString,
@@ -65,35 +65,35 @@ namespace Integration.Realtime.Common
         /// <returns>An instance of <see cref="AgentConsultEvent"/> representing the converted event.</returns>
         public static AgentConsultEvent ToAgentConferenceModeEvent(this StepEvent stepEvent)
         {
-            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentConferenceModeImage);
+            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == PostImageNodes.AgentConferenceModeImage);
             if (postImage.Key == null)
             {
                 return null;
             }
 
             // Check if Mode is consult
-            var mode = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesMode).Value;
-            if (string.IsNullOrWhiteSpace(mode) || mode != Constants.AttributeModeConsult)
+            var mode = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.Mode).Value;
+            if (string.IsNullOrWhiteSpace(mode) || mode != Attributes.ModeConsult)
             {
                 return null;
             }
 
             // Agent joined consult session
-            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesAgentId).Value;
+            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.AgentId).Value;
             if (string.IsNullOrWhiteSpace(agentName))
             {
-                agentName = "Unknown";
+                agentName = Constants.Unknown;
             }
 
             // Agent initiated consult session
-            var ownerName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesOwnerId).Value;
+            var ownerName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.OwnerId).Value;
             if (string.IsNullOrWhiteSpace(ownerName))
             {
-                ownerName = "Unknown";
+                ownerName = Constants.Unknown;
             }
 
             // Consult session created on
-            var createdOnString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesCreatedOn).Value;
+            var createdOnString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.CreatedOn).Value;
             DateTime? createdOn = !string.IsNullOrWhiteSpace(createdOnString) ?
                                     DateTime.Parse(
                                         createdOnString,
@@ -121,28 +121,28 @@ namespace Integration.Realtime.Common
         /// <returns>An instance of <see cref="AgentAfterWorkEvent"/> representing the converted event.</returns>
         public static AgentAfterWorkEvent ToAgentAfterWorkEvent(this StepEvent stepEvent)
         {
-            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentAfterWorkImage);
+            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == PostImageNodes.AgentAfterWorkImage);
             if (postImage.Key == null)
             {
                 return null;
             }
 
             // Check if status reason is wrap-up
-            var statusReason = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesStatusCode).Value;
-            if (string.IsNullOrWhiteSpace(statusReason) || statusReason != Constants.AttributesStatusCodeWrapup)
+            var statusReason = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.StatusCode).Value;
+            if (string.IsNullOrWhiteSpace(statusReason) || statusReason != Attributes.StatusCodeWrapup)
             {
                 return null;
             }
 
             // Agent name
-            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesActiveAgentId).Value;
+            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.ActiveAgentId).Value;
             if (string.IsNullOrWhiteSpace(agentName))
             {
-                agentName = "Unknown";
+                agentName = Constants.Unknown;
             }
 
             // After work initiated on
-            var wrapUpInitiatedOnstring = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesWrapupInitiatedOn).Value;
+            var wrapUpInitiatedOnstring = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.WrapupInitiatedOn).Value;
             DateTime? wrapUpInitiatedOn = !string.IsNullOrWhiteSpace(wrapUpInitiatedOnstring) ?
                                    DateTime.Parse(
                                        wrapUpInitiatedOnstring,
@@ -170,35 +170,35 @@ namespace Integration.Realtime.Common
         /// <returns>An instance of <see cref="AgentAcceptedIncomingWorkEvent"/> representing the converted event.</returns>
         public static AgentAcceptedIncomingWorkEvent ToAgentAcceptIncomingWorkEvent(this StepEvent stepEvent)
         {
-            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == Constants.AgentAcceptIncomingWorkImageNode);
+            var postImage = stepEvent.PostEntityImages.FirstOrDefault(p => p.Key == PostImageNodes.AgentAcceptIncomingWorkImage);
             if (postImage.Key == null)
             {
                 return null;
             }
 
             // Check if agent accepted incoming work
-            var agentAccepted = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributeAgentAccepted).Value;
+            var agentAccepted = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.IsAgentAccepted).Value;
             if (string.IsNullOrWhiteSpace(agentAccepted) || agentAccepted != "Yes")
             {
                 return null;
             }
 
             // channel
-            var channel = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesChannel).Value;
+            var channel = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.Channel).Value;
             if (string.IsNullOrWhiteSpace(channel))
             {
-                channel = "Unknown";
+                channel = Constants.Unknown;
             }
 
             // Agent name
-            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributesActiveAgentId).Value;
+            var agentName = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.ActiveAgentId).Value;
             if (string.IsNullOrWhiteSpace(agentName))
             {
-                agentName = "Unknown";
+                agentName = Constants.Unknown;
             }
 
             // After work initiated on
-            var startedOnString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Constants.AttributeStartedOn).Value;
+            var startedOnString = postImage.Value.FormattedValues.FirstOrDefault(f => f.Key == Attributes.StartedOn).Value;
             DateTime? startedOn = !string.IsNullOrWhiteSpace(startedOnString) ?
                                    DateTime.Parse(
                                        startedOnString,
