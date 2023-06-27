@@ -149,7 +149,10 @@ namespace Integration.Realtime.Client
                 }
 
                 default:
-                    throw new InvalidOperationException("Invalid Agent event..");
+                {
+                    Console.WriteLine($"Invalid event type: {cloudEvent.Type}");
+                    break;
+                }
             }
         }
     }
