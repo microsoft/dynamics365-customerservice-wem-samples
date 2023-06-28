@@ -4,7 +4,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using Integration.Realtime.Common;
-using Integration.Realtime.Common.Models;
 using Integration.Realtime.Common.Outputs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
@@ -60,16 +59,8 @@ namespace Integration.Realtime.Webhook.Functions
                 requestBody = await reader.ReadToEndAsync();
             }
 
-            if (string.IsNullOrWhiteSpace(requestBody))
+            if (!Helpers.ValidateInput(requestBody, logger, JsonSerializerSettings, out var stepEvent))
             {
-                logger?.LogWarning("Request body was empty.");
-                return;
-            }
-
-            var stepEvent = JsonConvert.DeserializeObject<StepEvent>(requestBody, JsonSerializerSettings);
-            if (stepEvent == null)
-            {
-                logger.LogWarning("Input step event was not in the expected schema.");
                 return;
             }
 

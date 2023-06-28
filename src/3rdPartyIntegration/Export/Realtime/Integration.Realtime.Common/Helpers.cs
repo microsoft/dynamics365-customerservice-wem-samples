@@ -2,6 +2,8 @@
 // Licensed under the MIT license.
 
 using System;
+using Integration.Realtime.Common.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -58,6 +60,33 @@ namespace Integration.Realtime.Common
                 NamingStrategy = new CamelCaseNamingStrategy(),
             });
             return serializerSettings;
+        }
+
+        /// <summary>
+        /// Validates input request.
+        /// </summary>
+        /// <param name="requestBody">HttpRequest body.</param>
+        /// <param name="logger">As instance of logger.</param>
+        /// <param name="serializerSettings">JsonSerializerSettings to use to deserialize request body.</param>
+        /// <param name="stepEvent">Deserialized request body.</param>
+        /// <returns>True if input is valid else return false.</returns>
+        public static bool ValidateInput(string requestBody, ILogger logger, JsonSerializerSettings serializerSettings, out StepEvent stepEvent)
+        {
+            stepEvent = null;
+            if (string.IsNullOrWhiteSpace(requestBody))
+            {
+                logger?.LogWarning("Request body was empty.");
+                return false;
+            }
+
+            stepEvent = JsonConvert.DeserializeObject<StepEvent>(requestBody, serializerSettings);
+            if (stepEvent == null)
+            {
+                logger.LogWarning("Input step event was not in the expected schema.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

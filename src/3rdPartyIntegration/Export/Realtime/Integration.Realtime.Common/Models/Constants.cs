@@ -16,22 +16,22 @@ namespace Integration.Realtime.Common.Models
             /// <summary>
             /// Represents the setting prefix for blob storage settings.
             /// </summary>
-            public const string SettingsBlobSettingPrefix = "BlobStorage";
+            public const string BlobSettingPrefix = "BlobStorage";
 
             /// <summary>
             /// Represents the setting name for the blob name.
             /// </summary>
-            public const string SettingsBlobNameSetting = "BlobName";
+            public const string BlobNameSetting = "BlobName";
 
             /// <summary>
             /// Represents the setting for event grid endpoint setting.
             /// </summary>
-            public const string SettingsEventGridEndpointSetting = "EventGridEndpoint";
+            public const string EventGridEndpoint = "EventGridEndpoint";
 
             /// <summary>
             /// Represents the setting for event grid key setting.
             /// </summary>
-            public const string SettingsEventGridKeySetting = "EventGridKey";
+            public const string EventGridKey = "EventGridKey";
         }
 
         /// <summary>
