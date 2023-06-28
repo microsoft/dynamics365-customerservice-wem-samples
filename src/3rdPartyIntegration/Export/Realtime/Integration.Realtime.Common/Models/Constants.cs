@@ -11,7 +11,7 @@ namespace Integration.Realtime.Common.Models
         /// <summary>
         /// Represents settings constants.
         /// </summary>
-        public static class SettingConstants
+        public static class Settings
         {
             /// <summary>
             /// Represents the setting prefix for blob storage settings.

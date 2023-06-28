@@ -43,8 +43,8 @@ namespace Integration.Realtime.Common.Outputs
                {
                     new EventGridAttribute()
                     {
-                        TopicEndpointUri = Constants.SettingConstants.EventGridEndpoint,
-                        TopicKeySetting = Constants.SettingConstants.EventGridKey,
+                        TopicEndpointUri = Constants.Settings.EventGridEndpoint,
+                        TopicKeySetting = Constants.Settings.EventGridKey,
                     },
                };
 

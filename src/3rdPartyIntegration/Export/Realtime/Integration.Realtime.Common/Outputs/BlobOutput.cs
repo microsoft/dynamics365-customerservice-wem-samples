@@ -36,7 +36,7 @@ namespace Integration.Realtime.Common.Outputs
         /// <inheritdoc/>
         public override async Task WriteEvent<T>(T propagationEvent, Binder binder)
         {
-            var blobnameTemplate = configuration.GetValue<string>(Constants.SettingConstants.BlobNameSetting);
+            var blobnameTemplate = configuration.GetValue<string>(Constants.Settings.BlobNameSetting);
             var outputBlobName = string.Format(
                 CultureInfo.InvariantCulture,
                 blobnameTemplate,
@@ -46,7 +46,7 @@ namespace Integration.Realtime.Common.Outputs
             var outputBlobAttributes = new Attribute[]
             {
                 new BlobAttribute(outputBlobName, FileAccess.Write),
-                new StorageAccountAttribute(Constants.SettingConstants.BlobSettingPrefix),
+                new StorageAccountAttribute(Constants.Settings.BlobSettingPrefix),
             };
 
             var blobClient = await binder.BindAsync<AppendBlobClient>(outputBlobAttributes);
