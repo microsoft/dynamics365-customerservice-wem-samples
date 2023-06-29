@@ -7,10 +7,10 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Azure.Messaging;
-using Integration.Realtime.Common.Models;
 using Microsoft.Azure.Relay;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Integration.Realtime.Client
 {
@@ -36,8 +36,8 @@ namespace Integration.Realtime.Client
 
             var tokenProvider = TokenProvider.CreateSharedAccessSignatureTokenProvider(settings.SasKeyName, settings.SasKey);
             var listener = new HybridConnectionListener(
-                new Uri(string.Format(CultureInfo.InvariantCulture, "sb://{0}/{1}", settings.RelayNamespace, settings.HybridConnectionName)),
-                tokenProvider);
+                 new Uri(string.Format(CultureInfo.InvariantCulture, "sb://{0}/{1}", settings.RelayNamespace, settings.HybridConnectionName)),
+                 tokenProvider);
 
             Console.WriteLine("Press Enter to exit.");
 
@@ -67,8 +67,7 @@ namespace Integration.Realtime.Client
                         return;
                     }
 
-                    var statusEvent = cloudEvent.Data.ToObjectFromJson<AgentStatusEvent>();
-                    DisplayEventDetails(statusEvent);
+                    DisplayEventMessage(cloudEvent);
                 }
 
                 // Do something with context.Request.Url, HttpMethod, Headers, InputStream...
@@ -117,12 +116,13 @@ namespace Integration.Realtime.Client
             return settings;
         }
 
-        private static void DisplayEventDetails(params AgentStatusEvent[] statusEvents)
+        private static void DisplayEventMessage(CloudEvent cloudEvent)
         {
-            foreach (var statusEvent in statusEvents)
-            {
-                Console.WriteLine($"{statusEvent.AgentName} changed to '{statusEvent.AgentStatus}' at zulu {statusEvent.StatusChangeTime}. [Org: {statusEvent.OrganizationName}. EventDelay:{statusEvent.EventDelayInMs}ms]");
-            }
+            // Get event type
+            var eventType = Type.GetType(cloudEvent.Type);
+            // Deserialize data using event type
+            var eventData = JsonConvert.DeserializeObject(cloudEvent.Data.ToString(), eventType);
+            Console.WriteLine(eventData);
         }
     }
 }

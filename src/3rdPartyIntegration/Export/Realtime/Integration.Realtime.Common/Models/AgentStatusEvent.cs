@@ -34,6 +34,6 @@ namespace Integration.Realtime.Common.Models
         public DateTime? StatusChangeTime { get; set; }
 
         /// <inheritdoc/>
-        public override string ToString() => $"{StatusChangeTime}, {AgentName}, {AgentStatus}";
+        public override string ToString() => $"{AgentName} changed to '{AgentStatus}' at zulu {StatusChangeTime}. [Org: {OrganizationName}. EventDelay:{EventDelayInMs}ms] ";
     }
 }
