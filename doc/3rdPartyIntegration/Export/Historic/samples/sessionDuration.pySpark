@@ -1,0 +1,19 @@
+workItemDf = readEntityFromLake(storageAccountName, manifestPath, "msdyn_ocsession")
+# Define columns to select
+workItemColumns = ["createdon","actualstart","actualend"]
+# Filter data frames for required rows and columns
+filteredSessionDf = workItemDf \
+                        .filter(workItemDf.createdon.isNotNull()) \
+                        .select(*workItemColumns) \
+                        .withColumn("createdon_date", to_date(workItemDf.createdon)) \
+                        .withColumn("start_timestamp", to_timestamp(workItemDf.actualstart)) \
+                        .withColumn("end_timestamp", to_timestamp(workItemDf.actualend)) \
+                        .withColumn("timeinseconds", col("actualend").cast("long") - col("start_timestamp").cast("long"))
+
+# Group joined data set on created date and queue name
+groupedDf = filteredSessionDf.groupBy(filteredSessionDf.createdon_date) \
+                .agg(avg(filteredSessionDf.timeinseconds)) \
+                .orderBy(filteredSessionDf.createdon_date) \
+                .withColumnRenamed("createdon_date", "date")
+groupedDf.show(truncate=False)
+writeToCsv(groupedDf, "ParticipantsPerSession")

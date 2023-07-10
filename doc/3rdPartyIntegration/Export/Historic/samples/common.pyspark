@@ -1,0 +1,17 @@
+from pyspark.sql.functions import when, to_date, avg, to_timestamp, col, cast
+from pyspark.sql.dataframe import DataFrame
+storageAccountName = "dynamicsstagingsa.dfs.core.windows.net"
+containerName = "stagingdata"
+manifestPath = "%s/sample/CDS/model.json" % (containerName)
+outputPath = "output"
+def readEntityFromLake(storageAccount, manifest, entityName):
+    dataFrame = (spark.read.format("com.microsoft.cdm")
+        .option("storage", storageAccount)
+        .option("manifestPath", manifest)
+        .option("entity", entityName)
+        .option("mode", "permissive")
+        .load())
+    return dataFrame
+def writeToCsv(dataFrame: DataFrame, csvName):
+    csvPath = 'abfss://%s@%s/%s/%s' % (containerName, storageAccountName, outputPath, csvName)
+    dataFrame.write.csv(csvPath, mode = 'overwrite', header = 'true')

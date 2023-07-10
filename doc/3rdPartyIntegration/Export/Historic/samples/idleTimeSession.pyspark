@@ -1,0 +1,15 @@
+IdlworkItemDf = readEntityFromLake(storageAccountName, manifestPath, "msdyn_sessionparticipant")
+# Define columns to select
+workItemColumns = ["createdon","msdyn_idletime","msdyn_agentidname"]
+# Filter data frames for required rows and columns
+filteredSessionDf = workItemDf \
+                        .filter(workItemDf.createdon.isNotNull()) \
+                        .select(*workItemColumns) \
+                        .withColumn("createdon_date", to_date(workItemDf.createdon)) \
+# Group joined data set on created date and queue name
+groupedDf = filteredSessionDf.groupBy(filteredSessionDf.createdon_date,filteredSessionDf.msdyn_agentidname) \
+                .agg(avg(filteredSessionDf.msdyn_idletime)) \
+                .orderBy(filteredSessionDf.createdon_date) \
+                .withColumnRenamed("createdon_date", "date")
+groupedDf.show(truncate=False)
+writeToCsv(groupedDf, "ParticipantsPerSession")
