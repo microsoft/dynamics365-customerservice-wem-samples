@@ -7,10 +7,9 @@
 - [Demo architecture & overview](#demo-architecture--overview)
 - [Setup](#setup)
   - [Create a storage account for Azure Data Lake Storage Gen2](#create-a-storage-account-for-azure-data-lake-storage-gen2)
-  - [Create a Synapse workspace](#create-a-synapse-workspace)
-  - [Deploy the Function App](#deploy-the-function-app)
+  - [Create a Synapse workspace](#create-a-synapse-workspace)  
   - [Connect Dynamics 365 Customer Service to Synapse Workspace](#connect-dynamics-365-customer-service-to-synapse-workspace)
-  - [Create a PySpark script in a Synapse Workspace notebook](#create-a-pyspark-script-in-a-synapse-workspace-notebook)
+  - [Import and run sample PySpark scripts](#import-and-run-sample-pyspark-scripts)
 
 ## Introduction
 
