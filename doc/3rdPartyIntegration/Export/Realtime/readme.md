@@ -1,19 +1,29 @@
-# Realtime integration with Dynamics 365 Customer Service
+# Realtime export integration with Dynamics 365 Customer Service
 
 ## In this article
 
 - [Introduction](#introduction)
+- [Sample code](#sample-code)
+- [Prerequisites](#prerequisites)
 - [Demo architecture & overview](#demo-architecture--overview)
 - [Setup](#setup)
   - [Create Azure resources](#create-azure-resources)
-  - [Security and RBAC](#security-and-rbac)
+    - [Security and RBAC](#security-and-rbac)
   - [Deploy the Function App](#deploy-the-function-app)
   - [Configure webhook plugin](#configure-webhook-plugin)
 - [Testing the pipeline](#testing-the-pipeline)
 
 ## Introduction
 
-This demo shows how to integrate with Dynamics 365 Customer Service and receive near real time event updates on topics of interest, such as agent status changes, etc.
+This wiki article shows how to integrate with Dynamics 365 Customer Service and receive near real time event updates on topics of interest, such as agent status changes, etc.
+
+[Return to top](#in-this-article)
+
+## Sample code
+
+The sample code for this topic is located in the [GitHub code repository](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Realtime) under `src/3rdPartyIntegration/Export/Realtime` folder.
+
+[Return to top](#in-this-article)
 
 ## Prerequisites
 
@@ -23,6 +33,8 @@ In order to run this demo, you need the following prerequisites:
 - An active Azure subscription. You must have permissions to create resources in this subscription.
 - [Azure CLI](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install#azure-cli) installed on your local computer. Azure CLI will be used to deploy Azure resources using the supplied Bicep template, and to deploy the function app. Alternatively, you can also install [Visual Studio Code with the Bicep extension](https://learn.microsoft.com/azure/azure-resource-manager/bicep/install#vs-code-and-bicep-extension), to edit and deploy the Bicep template. The rest of this document will use Azure CLI to deploy the supplied Bicep template.
 - [Power Platform CLI](https://learn.microsoft.com/power-platform/developer/cli/introduction#install-power-platform-cli-for-windows) installed on your local computer. Power Platform CLI (PAC CLI) will be used to register the webhook plugin, against your Dynamics 365 Customer Service org.
+
+[Return to top](#in-this-article)
 
 ## Demo architecture & overview
 
@@ -34,22 +46,22 @@ In our demo, the web hook has been implemented as an Azure Function. The functio
 - Event Grid: The data is output in Cloud Event format. The event grid is capable of distributing events at scale to other downstream systems. We showcase one such downstream system, a hybrid connection, which in turn is connected to by a console app running on your development box, displaying events as they arrive.
 
 The diagram below displays the setup that is created by the demo code and scripts:
-![An image showing the high level data flow and components for the demo](assets/pipeline.png)
+![An image showing the high level data flow and components for the demo](media/pipeline-export-rt.png)
+
+[Return to top](#in-this-article)
 
 ## Setup
 
 > **NOTE**
->
-> The setup steps outlined below may contain step that are specific for a Windows based operating system. If you are using a non Windows operating system, then you may have to modify some of these steps, as appropriate. 
+> The setup steps outlined below may contain step that are specific for a Windows based operating system. If you are using a non Windows operating system, then you may have to modify some of these steps, as appropriate.
 
 In order to run this demo, you will need to create Azure resources and configure your Dynamics 365 org. This section will outline the steps needed for the configuration.
 
 ### Create Azure resources
 
-To create the Azure resources, we have provided [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep) scripts that you can run and create the resources in an automated way. In order to run the Bicep scripts, you will need to sign in to your Azure account and provide a Resource Group name and location, where the new Azure resources will be created. The Bicep scripts are located under the `azure` folder.
+To create the Azure resources, we have provided [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep) scripts that you can run and create the resources in an automated way. In order to run the Bicep scripts, you will need to sign in to your Azure account and provide a Resource Group name and location, where the new Azure resources will be created. The Bicep scripts are located under the `deploy/3rdPartyIntegration/Export/Realtime/` folder.
 
 > **IMPORTANT**
->
 > Creating Azure resources will incur cost. Different Azure resources have different cost associated with them. Please refer to the Azure billing documentation for the specific resource, to estimate costs that may be incurred. It is recommended that you delete the resources as soon as you are done with the demo, to minimize cost. Some Azure resources incur cost even if you do not use them actively.
 
 In order to execute the scripts, open a command prompt window, navigate to the folder containing the bicep templates and execute the following command, ensuring to replace the placeholders with appropriate values:
@@ -59,7 +71,6 @@ az deployment sub create --location <location> --template-file <path-to-bicep> -
 ```
 
 > **NOTE**
->
 > If you get an error when you run the command, then re run it. The first time you execute the command, the bicep tools will be installed by Azure CLI, and might give an error about bicep section missing. Rerunning the command will get rid of the error.
 
 Once the command finishes running, the following Azure resources will be created in the resource group specified:
@@ -177,21 +188,23 @@ Running this command, will install PRT, if not already installed, and open the t
 
 Congratulations! You just registered a webhook that will be called whenever a new row is created in the msdyn_agentstatushistory table. After you finish all the steps above, your PRT window will show the following registration information:
 
-![An image showing the PRT window post configuration](assets/prt.png)
+![An image showing the PRT window post configuration](media/prt.png)
 
 In a similar fashion, you can include below events and tables against the webhook registration, and extend the functionality. Do not forget to update the azure function code to understand these new entities and events, and to create additional functions for new entities / events.
 
 - **Agent accept incoming work item**
 
-![An image showing the PRT window post configuration for agent accept incoming work item event](assets/agentacceptincomingwork.png)
+  ![An image showing the PRT window post configuration for agent accept incoming work item event](media/agentacceptincomingwork.png)
 
 - **Agent after work**
 
-![An image showing the PRT window post configuration for agent after work event](assets/agentafterwork.png)
+  ![An image showing the PRT window post configuration for agent after work event](media/agentafterwork.png)
 
 - **Agent consult mode**
 
-![An image showing the PRT window post configuration for agent consult mode event](assets/agentconsultmode.png)
+  ![An image showing the PRT window post configuration for agent consult mode event](media/agentconsultmode.png)
+
+[Return to top](#in-this-article)
 
 ## Testing the pipeline
 
@@ -230,3 +243,5 @@ To test that the events show up in the console application, perform the followin
 - Press `Enter` key to exit out of the listening mode in the console app.
 
 Congratulations! You have successfully verified that the Presence change event has been delivered to downstream systems in near real time. Do not forget to clean up your Azure resources, after you're done, to prevent additional charges.
+
+[Return to top](#in-this-article)
