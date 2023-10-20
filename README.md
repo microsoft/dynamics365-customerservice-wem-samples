@@ -1,4 +1,4 @@
-# Dynamics 365 Customer Service Workforce Engagement Management (WEM) samples
+# Dynamics 365 Workforce Management for Customer Service samples
 
 This repository provides sample code and documentation related to Dynamics 365 Workforce Management for Customer Service. For documentation on Dynamics 365 Customer Service, please visit <https://learn.microsoft.com/dynamics365/customer-service>.
 
