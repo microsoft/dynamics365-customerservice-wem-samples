@@ -5,13 +5,13 @@
 - [Introduction](#introduction)
 - [Sample code](#sample-code)
 - [Prerequisites](#prerequisites)
-- [Demo architecture & overview](#demo-architecture--overview)
+- [Demo architecture and overview](#demo-architecture-and-overview)
 - [Setup](#setup)
   - [Create Azure resources](#create-azure-resources)
     - [Security and RBAC](#security-and-rbac)
   - [Deploy the Function App](#deploy-the-function-app)
   - [Configure webhook plugin](#configure-webhook-plugin)
-- [Testing the pipeline](#testing-the-pipeline)
+- [Test the pipeline](#test-the-pipeline)
 
 ## Introduction
 
@@ -21,7 +21,7 @@ This article shows you how to integrate with Dynamics 365 Customer Service and r
 
 ## Sample code
 
-The sample code for this topic is located in the [GitHub code repository](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Realtime) in the `src/3rdPartyIntegration/Export/Realtime` folder.
+The sample code for this topic is located in the [GitHub code repository](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Realtime) in the src/3rdPartyIntegration/Export/Realtime folder.
 
 [Return to top](#in-this-article)
 
@@ -36,7 +36,7 @@ In order to run this demo, you need the following prerequisites:
 
 [Return to top](#in-this-article)
 
-## Demo architecture & overview
+## Demo architecture and overview
 
 The included demo demonstrates how you can consume Dynamics 365 Customer Service events in near real time. The demo shows an example of consuming agent status updates in near real time. This example may be extended to track other Dynamics 365 Customer Service events as well.
 
@@ -62,7 +62,7 @@ In order to run this demo, you need to create Azure resources and configure your
 
 ### Create Azure resources
 
-To create the Azure resources, we've provided [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep) scripts that you can run and create the resources in an automated way. In order to run the Bicep scripts, you need to sign in to your Azure account and provide a resource group name and location where the new Azure resources will be created. The Bicep scripts are located in the `deploy/3rdPartyIntegration/Export/Realtime/` folder.
+To create the Azure resources, we've provided [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep) scripts that you can run and create the resources in an automated way. In order to run the Bicep scripts, you need to sign in to your Azure account and provide a resource group name and location where the new Azure resources will be created. The Bicep scripts are located in the deploy/3rdPartyIntegration/Export/Realtime/ folder.
 
   > [!IMPORTANT]
   > Creating Azure resources incurs cost. Different Azure resources have different costs associated with them. To estimate costs you may incur, review the Azure billing documentation. We recommended that you delete the resources as soon as you're done with the demo to minimize cost. Some Azure resources incur costs even if you don't actively use them.
@@ -93,7 +93,7 @@ If you need to debug locally, then you should add your user account to the appro
 
 When the Azure resources have been created, deploy the function app code from your local computer:
 
-1. Open a command prompt window, and then navigate to the folder that contains the Visual Studio solution file `Integration.Realtime.sln`.
+1. Open a command prompt window, and then navigate to the folder that contains the Visual Studio solution file, **Integration.Realtime.sln**.
    
 1. Run the following command to compile and publish the function app to an output folder:
 
@@ -121,7 +121,7 @@ When the Azure resources have been created, deploy the function app code from yo
    az functionapp deployment source config-zip -g <resource-group-name> -n <function-app-name> --src "<path-to-zip-file>"
    ```
 
-   Here, the `resource-group-name` should be the same name that you entered in the bicep template when creating the Azure resources. The `function-app-name` can be found by navigating to the resource group in the [Azure Portal](https://portal.azure.com). *Be sure to enclose the `path-to-zip-file` with double quotes, incase your path has spaces in it*.
+   Here, the **resource-group-name** should be the same name that you entered in the bicep template when creating the Azure resources. The **function-app-name** is found by navigating to the resource group in the [Azure Portal](https://portal.azure.com). *Be sure to enclose the **path-to-zip-file** with double quotes, in case your path has spaces in it*.
 
 After the deployment completes successfully, your function app runs in the cloud.
 
@@ -131,19 +131,19 @@ The next steps show you how to configure the webhook plugin using the Plugin Reg
 
 Before you can register the webhook plugin, you need the following information:
 
-- **Function url**. This is the url to the `AgentStatus` function that was deployed as part of the zip package earlier.
+- **Function url**. This is the URL to the `AgentStatus` function that was deployed as part of the zip package earlier.
 - **Function key**. This is the authentication key for calling the function app.
 
 To retrieve both of these values, perform the following steps:
 
-1. Navigate to the function app in the [Azure Portal](https://portal.azure.com), and then select `Functions`. This shows all the functions in the function app.
+1. Navigate to the function app in the [Azure Portal](https://portal.azure.com), and then select **Functions**. This shows all the functions in the function app.
 
-1. At this stage, there should be only one function listed, called `AgentStatus`. Select this function name.
+1. At this stage, there should be only one function listed, called AgentStatus. Select this function name.
 
 1. To retrieve the required values, do the following:
 
-   - Select the `Get Function Url` link in the top menu on the `Overview` tab. This will display a popup.
-   - From the dropdown in the popup, select `default (function key)`. Copy the URL that's shown into a text editor of your choice.
+   - Select the **Get Function Url** link in the top menu on the **Overview** tab. This displays a popup.
+   - From the dropdown in the popup, select **default (function key)**. Copy the URL that's shown into a text editor of your choice.
    - The copied URL has the following format: `https://<function-url>?code=<auth-key>`.
      - The **Function url** is `https://<function-url>` in the copied URL.
      - The **Function key** is `<auth-key>` in the copied URL.
