@@ -282,3 +282,7 @@ There are multiple methods that can be used to connect your Azure Synapse Worksp
 1. Select **Create**.
 
 [Return to top](#in-this-article)
+
+>[!IMPORTANT]
+>Don't forget to clean up your Azure resources after you're done to prevent additional charges.
+
