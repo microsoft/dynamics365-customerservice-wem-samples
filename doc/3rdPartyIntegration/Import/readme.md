@@ -1,8 +1,8 @@
-# Import integration with Dynamics 365 Customer Service
+# Schedule import integration with Dynamics 365 Customer Service
 
 ## In this article
 
-- [Import integration with Dynamics 365 Customer Service](#import-integration-with-dynamics-365-customer-service)
+- [Schedule import integration with Dynamics 365 Customer Service](#schedule-import-integration-with-dynamics-365-customer-service)
   - [In this article](#in-this-article)
   - [Introduction](#introduction)
   - [High-level overview](#high-level-overview)
@@ -23,12 +23,12 @@
 
 ## Introduction
 
-Supervisors use Demand forecasting to estimate the number of agents required to meet the forecasted incoming support requests. Using this estimation, supervisors can schedule agents based on various attributes, such as channels, queues, skills etc. Dynamics 365 for Customer Service provides an easy way to integrate with third-party scheduling systems by allowing users to schedule agents in the third-party systems and providing an ability to import the schedules back to Dynamics 365 for Customer Service. When imported, the schedules can be used to set up routing rules in Dynamics 365 for Customer Service to provide a seamless integration between the schedules authored in third-party systems and routing system in Dynamics 365.
+Dynamics 365 Customer Service provides an easy way to integrate with third-party scheduling systems by allowing users to schedule agents in the third-party systems and providing an ability to import the schedules back to Dynamics 365 Customer Service. Agents can review their schedules in Dynamics 365 Customer Service conveniently, without having to navigate to the third-party WFM system.
 
 The following diagram shows the high-level flow of the scenario:
 ![A diagram showing the import workflow](media/Import-flow.png)
 
-This article outlines the data model in Dynamics 365 for Customer Service, which supports the imported schedules from any arbitrary third-party scheduling systems.
+This article outlines the data model in Dynamics 365 Customer Service, which supports the imported schedules from any arbitrary third-party scheduling systems.
 
 [Return to top](#in-this-article)
 
@@ -36,7 +36,7 @@ This article outlines the data model in Dynamics 365 for Customer Service, which
 
 At a high level, each agent works in a shift. A shift represents the total amount of time that the agent's available to perform various activities. A shift is comprised of one or more bookings, which represents a finite time duration within the shift in which the agent performs the assigned task.
 
-The following diagram shows a high-level overview of the various entities and their relationships as they apply to importing schedules from third-party systems to Dynamics 365 for Customer Service:
+The following diagram shows a high-level overview of the various entities and their relationships as they apply to importing schedules from third-party systems to Dynamics 365 Customer Service:
 
 ![A diagram showing the import data model](media/import-datamodel.png)
 
@@ -161,7 +161,7 @@ Entity **bookingstatus** is an existing entity. This entity allows the creation 
 1. **Canceled**: Indicates that the booking has been canceled and is no longer committed.
 
 >[!NOTE]
->As part of this feature, only committed and finalized bookings should be imported to Dynamics 365 for Customer Service.
+>As part of this feature, only committed and finalized bookings should be imported to Dynamics 365 Customer Service.
 
 The following attributes are of interest:
 
