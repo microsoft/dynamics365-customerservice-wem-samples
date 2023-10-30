@@ -160,8 +160,8 @@ Entity **bookingstatus** is an existing entity. This entity allows the creation 
 1. **Committed**: Indicates that the booking has been finalized and committed.
 1. **Canceled**: Indicates that the booking has been canceled and is no longer committed.
 
-> **NOTE**
-> As part of this feature, only committed and finalized bookings should be imported to Dynamics 365 for Customer Service.
+>[!NOTE]
+>As part of this feature, only committed and finalized bookings should be imported to Dynamics 365 for Customer Service.
 
 The following attributes are of interest:
 
