@@ -2,20 +2,22 @@
 
 ## In this article
 
-- [Introduction](#introduction)
-- [Sample code](#sample-code)
-- [Prerequisites](#prerequisites)
-- [Demo architecture and overview](#demo-architecture-and-overview)
-- [Setup](#setup)
-  - [Create an Azure Data Lake Storage Gen2](#create-an-azure-data-lake-storage-gen2)
-  - [Create a Synapse workspace](#create-a-synapse-workspace)  
-  - [Connect Dynamics 365 Customer Service to Synapse Workspace](#connect-dynamics-365-customer-service-to-synapse-workspace)
-    - [View your data in Azure Synapse Analytics](#view-your-data-in-azure-synapse-analytics)
-  - [Import and run sample PySpark scripts](#import-and-run-sample-pyspark-scripts)
-  - [Connecting to storage accounts in a different AAD tenant](#how-to-connect-Azure-Synapse-Workspace-to-a-storage-account-in-a-different-azure-active-directory-tenant)
-    - [Use managed endpoint](#use-managed-endpoint)
-    - [Use managed identity](#use-managed-identity)
-    - [Use storage account key](#use-storage-account-key)
+- [Historic export integration with Dynamics 365 Customer Service](#historic-export-integration-with-dynamics-365-customer-service)
+  - [In this article](#in-this-article)
+  - [Introduction](#introduction)
+  - [Sample code](#sample-code)
+  - [Prerequisites](#prerequisites)
+  - [Demo architecture and overview](#demo-architecture-and-overview)
+  - [Setup](#setup)
+    - [Create an Azure Data Lake Storage Gen2](#create-an-azure-data-lake-storage-gen2)
+    - [Create a Synapse workspace](#create-a-synapse-workspace)
+    - [Connect Dynamics 365 Customer Service to Synapse Workspace](#connect-dynamics-365-customer-service-to-synapse-workspace)
+      - [View your data in Azure Synapse Analytics](#view-your-data-in-azure-synapse-analytics)
+    - [Import and run sample PySpark scripts](#import-and-run-sample-pyspark-scripts)
+    - [How to connect Azure Synapse Workspace to a storage account in a different Azure Active Directory tenant](#how-to-connect-azure-synapse-workspace-to-a-storage-account-in-a-different-azure-active-directory-tenant)
+      - [Use managed endpoint](#use-managed-endpoint)
+      - [Use managed identity](#use-managed-identity)
+      - [Use storage account key](#use-storage-account-key)
 
 ## Introduction
 
@@ -33,7 +35,7 @@ The sample code for this topic is located in the [GitHub code repository](https:
 
 In order to run this demo, you need the following prerequisites:
 
-- An active Dynamics 365 Customer Service org with Omnichannel installed. You must have the System Administrator` role in this org.
+- An active Dynamics 365 Customer Service org with Omnichannel installed. You must have the `System Administrator` role in this org.
 - An active Azure subscription. You must have permissions to create resources in this subscription.
 
 [Return to top](#in-this-article)
@@ -74,7 +76,7 @@ To create a storage account for Azure Data Lake Storage Gen2, follow these steps
 
 1. In the search results, under **Services**, select **Storage accounts**, and then select **Create**.
 
-1. On the **Basics** tab, select your subscription, resource group, and a unique name for your storage account. Storage account names must be between 3 and 24 characters in length and may contain nnly numbers and lowercase letters.
+1. On the **Basics** tab, select your subscription, resource group, and a unique name for your storage account. Storage account names must be between 3 and 24 characters in length and may contain only numbers and lowercase letters.
 
 1. Select **Standard** or **Premium** for performance, depending on your performance requirements. More information: [Storage account setup overview](https://learn.microsoft.com/azure/storage/common/storage-account-overview).
 

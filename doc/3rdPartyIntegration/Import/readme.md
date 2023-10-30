@@ -2,22 +2,24 @@
 
 ## In this article
 
-- [Introduction](#introduction)
-- [High level overview](#high-level-overview)
-- [Steps to import bookings](#steps-to-import-bookings-from-3rd-party-system)
-- [Data model](#data-model)
-  - [Bookable Resource](#bookable-resource-bookableresource)
-    - [Bookable Resource - Resource Type](#bookable-resource---resource-type)
-  - [Booking Status](#booking-status-bookingstatus)
-    - [Booking Status - Status](#booking-status---status)
-  - [Resource Schedule Source](#resource-schedule-source-msdyn_resourceschedulesource)
-  - [Shift Assignment Status](#shift-assignment-status-msdyn_shiftassignmentstatus)
-  - [Shift Activity Type](#shift-activity-type-msdyn_shiftactivitytype)
-  - [Shift Plan](#shift-plan-msdyn_shiftplan)
-  - [Booking Setup Metadata](#booking-setup-metadata-msdyn_bookingsetupmetadata)
-  - [Bookable Resource Booking](#bookable-resource-booking-bookableresourcebooking)
-    - [Bookable Resource Booking - Booking Type](#bookable-resource-booking---booking-type)
-- [Viewing imported bookings](#viewing-imported-bookings)
+- [Import integration with Dynamics 365 Customer Service](#import-integration-with-dynamics-365-customer-service)
+  - [In this article](#in-this-article)
+  - [Introduction](#introduction)
+  - [High-level overview](#high-level-overview)
+  - [Steps to import bookings from 3rd party system](#steps-to-import-bookings-from-3rd-party-system)
+  - [Data model](#data-model)
+    - [Bookable Resource (`bookableresource`)](#bookable-resource-bookableresource)
+      - [Bookable Resource - Resource Type](#bookable-resource---resource-type)
+    - [Booking Status (`bookingstatus`)](#booking-status-bookingstatus)
+      - [Booking Status - Status](#booking-status---status)
+    - [Resource Schedule Source (`msdyn_resourceschedulesource`)](#resource-schedule-source-msdyn_resourceschedulesource)
+    - [Shift Assignment Status (`msdyn_shiftassignmentstatus`)](#shift-assignment-status-msdyn_shiftassignmentstatus)
+    - [Shift Activity Type (`msdyn_shiftactivitytype`)](#shift-activity-type-msdyn_shiftactivitytype)
+    - [Shift Plan (`msdyn_shiftplan`)](#shift-plan-msdyn_shiftplan)
+    - [Booking Setup Metadata (`msdyn_bookingsetupmetadata`)](#booking-setup-metadata-msdyn_bookingsetupmetadata)
+    - [Bookable Resource Booking (`bookableresourcebooking`)](#bookable-resource-booking-bookableresourcebooking)
+      - [Bookable Resource Booking - Booking Type](#bookable-resource-booking---booking-type)
+  - [Viewing imported bookings](#viewing-imported-bookings)
 
 ## Introduction
 
@@ -50,7 +52,7 @@ Finally, the booking identifies a [Booking Setup Metadata](#booking-setup-metada
 
 This section outlines the process and steps to import bookings from any arbitrary third-party system. The steps outline the sequence of the required entity creation that leads to a successful creation of an imported booking.
 
-> **NOTE**
+> [!NOTE]
 > To create the objects in Dataverse, either use the [Organization Service](https://learn.microsoft.com/power-apps/developer/data-platform/org-service/overview) or the [Dataverse OData Web API](https://learn.microsoft.com/power-apps/developer/data-platform/webapi/overview). The method that you choose to interact with Dataverse objects depends on your individual design and implementation, among other factors. We don't make recommendations regarding using one method over the other. **This document expects that you're familiar with at least one of these methods for interacting with Dataverse objects**.
 
 1. Ensure that you have a user created for each agent in Dynamics 365. To create a user, follow these steps:
@@ -59,14 +61,13 @@ This section outlines the process and steps to import bookings from any arbitrar
 
    1. Select **Settings**, and then under **Users + permissions**, select **Users**.
 
-   1. Select **Add user**, and then search for the user’s name or email address. The user should already exist in 
-   the Azure Active Directory associated with the org.
+   1. Select **Add user**, and then search for the user’s name or email address. The user should already exist in the Azure Active Directory associated with the org.
 
    1. Select the user, and then select **Add**.
 
    1. Assign the user to the appropriate role(s). More information: [Overview of user management](https://learn.microsoft.com/dynamics365/customer-service/overview-users).
 
-   > **NOTE**
+   > [!NOTE]
    > We recommended that you precreate users in Dynamics 365 to reflect the ones in the third-party system. This is a one-time setup, and should only be repeated when adding additional new agents.
 
 1. Create a bookable resource entity for the user. The bookable resource needs to be created whenever the incoming import payload contains an agent that doesn't have a matching bookable resource (agent) in Dynamics 365. To create the bookable resource, ensure that you understand the [Bookable Resource](#bookable-resource-bookableresource) schema and the required fields to create an entry. The following fields will need to be hydrated:
