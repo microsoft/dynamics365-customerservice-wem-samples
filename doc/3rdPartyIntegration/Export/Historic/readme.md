@@ -150,8 +150,8 @@ To view your data in Azure Synapse Analytics, follow these steps:
 
   You can use various tools within the Synapse Studio, such as SQL Serverless, Spark notebooks, Power BI, and so forth, to query, analyze, visualize, or transform your Dataverse data.
 
-> **NOTE**
-> The data stored in the data lake is in the Common Data Model (CDM) format. More information: [Common Data Model](https://learn.microsoft.com/common-data-model/)
+>[!NOTE]
+>The data stored in the data lake is in the Common Data Model (CDM) format. More information: [Common Data Model](https://learn.microsoft.com/common-data-model/)
 
 [Return to top](#in-this-article)
 
@@ -282,3 +282,7 @@ There are multiple methods that can be used to connect your Azure Synapse Worksp
 1. Select **Create**.
 
 [Return to top](#in-this-article)
+
+>[!IMPORTANT]
+>Don't forget to clean up your Azure resources after you're done to prevent additional charges.
+

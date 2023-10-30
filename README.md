@@ -1,16 +1,16 @@
-# Dynamics 365 Workforce Management for Customer Service samples
+# Integrate Dynamics 365 Customer Service with third-party workforce management
 
-This repository provides sample code and documentation related to Dynamics 365 Workforce Management for Customer Service. For documentation on Dynamics 365 Customer Service, please visit <https://learn.microsoft.com/dynamics365/customer-service>.
+This repository provides sample code and documentation related to integrating third-party workforce management with Dynamics 365 Customer Service.
 
 ## Integration
 
-Dynamics 365 Workforce Management for Customer Service allows third-party services to easily integrate and provide additional capabilities. Integration can be done in the following ways:
+Dynamics 365 Customer Service allows third-party services to easily integrate and provide additional capabilities. Integration can be done in the following ways:
 
 - **Export**: This allows third-party services to export data from Dynamics 365 Customer Service, to provide additional capabilities, or to integrate with other third-party service providers. An export can be done in the following ways:
   - [**Realtime**](/doc/3rdPartyIntegration/Export/Realtime/readme.md): This allows an event-driven, near real time data export to external systems.
   - [**Historical**](/doc/3rdPartyIntegration/Export/Historic/readme.md): This allows an export and processing of historical data to external systems.
 
-- [**Import**](/doc/3rdPartyIntegration/Import/readme.md): This allows third-party services to import data into Dynamics 365 Workforce Management for Customer Service from external systems.
+- [**Schedule Import**](/doc/3rdPartyIntegration/Import/readme.md): This allows third-party services to import schedule data into Dynamics 365 Customer Service from external systems.
 
 ## Code samples
 
@@ -25,7 +25,7 @@ This sample code shows how users can integrate with Dynamics 365 Customer Servic
 
 ### Historical export integration
 
-This sample code provides a Jupyter Notebook that can be used to process historical data that's been exported to an external data store, such as Azure Data Lake. For more information on historical export integration, see [Historical export integration](/doc/3rdPartyIntegration/Export/Historic/readme.md).
+This sample code provides a [Jupyter Notebook](https://jupyter.org/) that can be used to process historical data that's been exported to an external data store, such as Azure Data Lake. For more information on historical export integration, see [Historical export integration](/doc/3rdPartyIntegration/Export/Historic/readme.md).
 
 ## Related sample repositories
 
@@ -40,3 +40,4 @@ This sample code provides a Jupyter Notebook that can be used to process histori
 - [License](/LICENSE)
 - [Reporting security issues](/SECURITY.md)
 - [Getting support](/SUPPORT.md)
+- [Dynamics 365 Customer Service documentation](https://learn.microsoft.com/dynamics365/customer-service).

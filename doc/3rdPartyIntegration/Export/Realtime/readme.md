@@ -288,6 +288,7 @@ To test that the events show up in the console application, perform the followin
 
 Congratulations! You've successfully verified that the Presence change event was delivered to downstream systems in near real time.
 
-Don't forget to clean up your Azure resources after you're done to prevent additional charges.
-
 [Return to top](#in-this-article)
+
+>[!IMPORTANT]
+>Don't forget to clean up your Azure resources after you're done to prevent additional charges.
