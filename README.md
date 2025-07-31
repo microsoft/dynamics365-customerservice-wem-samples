@@ -9,6 +9,7 @@ Dynamics 365 Customer Service allows third-party services to easily integrate an
 - **Export**: This allows third-party services to export data from Dynamics 365 Customer Service, to provide additional capabilities, or to integrate with other third-party service providers. An export can be done in the following ways:
   - [**Realtime**](/doc/3rdPartyIntegration/Export/Realtime/readme.md): This allows an event-driven, near real time data export to external systems.
   - [**Historical**](/doc/3rdPartyIntegration/Export/Historic/readme.md): This allows an export and processing of historical data to external systems.
+  - [**Api Based**](/doc/3rdPartyIntegration/Export/Api/readme.md): This allows an ad-hoc export of data to external systems.
 
 - [**Schedule Import**](/doc/3rdPartyIntegration/Import/readme.md): This allows third-party services to import schedule data into Dynamics 365 Customer Service from external systems.
 
@@ -18,6 +19,7 @@ The following sample codes are available in the repository:
 
 - [Realtime export integration](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Realtime)
 - [Historical export integration](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Historical)
+- [Api (Ad-hoc) export integration](https://github.com/microsoft/dynamics365-customerservice-wem-samples/tree/main/src/3rdPartyIntegration/Export/Api)
 
 ### Realtime export integration
 
@@ -26,6 +28,10 @@ This sample code shows how users can integrate with Dynamics 365 Customer Servic
 ### Historical export integration
 
 This sample code provides a [Jupyter Notebook](https://jupyter.org/) that can be used to process historical data that's been exported to an external data store, such as Azure Data Lake. For more information on historical export integration, see [Historical export integration](/doc/3rdPartyIntegration/Export/Historic/readme.md).
+
+### Api (Ad-Hoc) export integration
+
+This sample code shows how users can integrate with Dynamics 365 Customer Service using rest api/dataverse client to export data on ad-hoc basis. For more information on api based export integration, see [Api export integration](/doc/3rdPartyIntegration/Export/Api/readme.md).
 
 ## Related sample repositories
 
