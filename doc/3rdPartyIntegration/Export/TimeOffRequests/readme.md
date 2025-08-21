@@ -1,19 +1,20 @@
-﻿# Dynamics 365 Api based Integration Console Application
+﻿# Exporting Time off data from Dynamics 365 Workforce Management
 
 ## In this article
 
-- Api based export integration with Dynamics 365 Customer Service
-    - [Introduction](#introduction)
-    - [Sample code](#sample-code)
-    - [Prerequisites](#prerequisites)
-    - [Update app config](#update-app-config)
-    - [Sample Data Setup](#sample-data-setup)
-      - [Enable required WEM features](#enable-required-wem-features)
-      - [Verify manager assignment](#verify-manager-assignment)
-      - [Define Time-Off types](#define-time-off-types)
-      - [Create Time-Off requests](#create-time-off-requests)
-      - [Act on Time-Off requests using manager login](#act-on-time-off-requests-using-manager-login)
-    - [Sample Code Overview](#sample-code-overview)
+- [Exporting Time off data from Dynamics 365 Workforce Management](#exporting-time-off-data-from-dynamics-365-workforce-management)
+  - [In this article](#in-this-article)
+  - [Introduction](#introduction)
+  - [Sample code](#sample-code)
+  - [Prerequisites](#prerequisites)
+  - [Update app config](#update-app-config)
+  - [Sample Data Setup](#sample-data-setup)
+    - [Enable required WEM features](#enable-required-wem-features)
+    - [Verify manager assignment](#verify-manager-assignment)
+    - [Define Time-Off types](#define-time-off-types)
+    - [Create Time-Off requests](#create-time-off-requests)
+    - [Act on Time-Off requests using manager login](#act-on-time-off-requests-using-manager-login)
+  - [Sample Code Overview](#sample-code-overview)
 
 ## Introduction
 
