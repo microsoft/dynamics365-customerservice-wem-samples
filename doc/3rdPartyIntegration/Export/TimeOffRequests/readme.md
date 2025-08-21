@@ -6,12 +6,14 @@
     - [Introduction](#introduction)
     - [Sample code](#sample-code)
     - [Prerequisites](#prerequisites)
-    - [Azure Entra Client App Setup](#azure-entra-client-app-setup)
+    - [Update app config](#update-app-config)
     - [Sample Data Setup](#sample-data-setup)
+      - [Enable required WEM features](#enable-required-wem-features)
+      - [Verify manager assignment](#verify-manager-assignment)
+      - [Define Time-Off types](#define-time-off-types)
+      - [Create Time-Off requests](#create-time-off-requests)
+      - [Act on Time-Off requests using manager login](#act-on-time-off-requests-using-manager-login)
     - [Sample Code Overview](#sample-code-overview)
-      - [Key Components](#1-key-components)
-      - [Workflow](#2-workflow)
-      - [Comparison of REST and Dataverse Approaches](#3-comparison-of-rest-and-dataverse-approaches)
 
 ## Introduction
 
@@ -30,42 +32,12 @@ The sample code for this topic is located in the [GitHub code repository](https:
 
 In order to run this demo, you need the following prerequisites:
 
-- An active Dynamics 365 Customer Service org with Omnichannel installed. You must have adminstrator permissions for this org.
-- An active Azure subscription with permissions to create resources in it.
+- An active Dynamics 365 Customer Service org with Omnichannel installed. You must have administrator permissions for this org.
 
  [Return to top](#in-this-article)
 
----
-# Azure Entra Client App Setup
 
-This guide outlines the steps to register an application in Azure Entra ID, generate and install certificates, configure Dynamics 365 application user, and update your integration code.
-
-
-## 1. Register an Application in Azure Entra ID
-
-- Go to [Azure Portal](https://portal.azure.com), navigate to **Azure Active Directory > App registrations**, and create a new app registration.
-- Record the **Application (Client) ID** and **Tenant ID**.
-- Under **Certificates & Secrets**, upload your certificate (typically a `.cer` file for public key) and note the **Thumbprint**.
-
----
-
-## 2. Generate and Install the Certificate
-
-- For sample testing purposes, you can generate a self-signed certificate using **Azure Key Vault** or tools like **PowerShell** or **OpenSSL**.
-- For production, use a **trusted Certificate Authority (CA)** and **secret management stores** like **Azure Key Vault**. Avoid cross-environment sharing and follow other security guidelines for renewal etc.
-- Install the certificate (usually `.pfx` format) on the machine or service that will run the integration code.
-
----
-
-## 3. Create an Application User in Dynamics 365
-
-- In **Dynamics 365**, go to **Settings > Security > Users**, switch the view to **Application Users**, and create a new user.
-- Map it to the **Application ID** from your Azure app registration.
-- Assign appropriate **security roles** to this user.
-
----
-
-## 4. Update app config
+## Update app config
 
 Update your sample integration code config with the following values, in the `appSettings.json` file:
 
@@ -76,91 +48,36 @@ Update your sample integration code config with the following values, in the `ap
 
 [Return to top](#in-this-article)
 
----
-# Sample Data Setup
+## Sample Data Setup
 
-1. **Enable required WEM features**  
-   - If not already done, enable required channels in **CSAC → Channels  →  Manage Channels**   
-   - In **CSAC → Workforce Management**, ensure **Schedule Management** is turned on.
+### Enable required WEM features
+If not already done, enable required channels in `CSAC > Channels > Manage Channels`.   
 
+### Verify manager assignment
+Ensure the user has a manager assigned in  `CSAC > User Management > [Select User] > Organization Information > Manager`.
+  > [!IMPORTANT]
+  > An user cannot raise a Time Off Request (TOR), without having a manager.
 
-2. **Verify manager assignment**  
-   - Ensure the user has a manager assigned in  
-   **CSAC → User Management → [Select User] → Organization Information → Manager**.  
-   > ⚠️ Without a manager, the user cannot raise a Time Off Request (TOR).
+### Define Time-Off types
+Add time-off types under `CSAC > Workforce Management > Time Management > Time-off Request Types`.
 
-3. **Define Time-Off types**  
-   - Add time-off types under  
-   **CSAC → Workforce Management → Time Management → Time-off Request Types**.
+### Create Time-Off requests
+Log in with few users and raise time-off requests under `Copilot Service Workspace > Workforce Management > Request Management`.
 
-4. **Create Time-Off requests**  
-   - Log in with few users and raise time-off requests under  
-   **CSW → Request Management**.
-
-5. **Act on Time-Off requests using manager login**  
-   - Approve or deny requests under  
-   **CSW → Request Management** using a **Manager** login.
+### Act on Time-Off requests using manager login
+Approve or deny requests under  `Copilot Service Workspace > Workforce Management > Request Management` using a **Manager** login.
 
 [Return to top](#in-this-article)
 
 ## Sample Code Overview
-The application uses two approaches to interact with Dynamics 365:
-- **REST API**: Implemented in `RestClient.cs`.
-- **Dataverse SDK**: Implemented in `DataverseClient.cs`.
+The application shows how to use the [Dataverse client SDK](https://learn.microsoft.com/dotnet/api/microsoft.powerplatform.dataverse.client.serviceclient?view=dataverse-sdk-latest) to query for the Time Off Types and the Time Off Requests. The provided sample is a console application written in C#.
 
-The entry point is `Program.cs`, which orchestrates the flow by acquiring an access token and invoking methods from both clients.
+The sample code contains two methods under `DataverseClient.cs`.
 
----
+- **GetTimeOffTypes**: Queries the `msdyn_timeofftype` table to get the list of defined Time Off types. Finally it prints it on the console.
+- **GetTimeOffRequests**: Queries the `msdyn_wemrequest` table to get the list of all time off requests. Additionally you can pass in a flag to get only approved requests. Finally it prints teh requests on the console.
 
-## **1. Key Components**
-
-### **Program.cs**
-- **Authentication**:
-  - Uses Azure AD to authenticate via a certificate-based approach.
-  - Acquires an access token using the `ConfidentialClientApplicationBuilder` from the Microsoft Identity Client library.
-- **Data Retrieval**:
-  - Calls methods from `RestClient` and `DataverseClient` to fetch and display data.
-
-### **RestClient.cs**
-- Provides static methods to interact with Dynamics 365 using HTTP requests:
-  - **`GetTimeOffTypes`**:
-    - Sends a GET request to fetch all "Time Off Types".
-    - Parses and prints the JSON response.
-  - **`GetTimeOffRequests`**:
-    - Sends a GET request to fetch "Approved Time Off Requests" (filtered by `msdyn_requeststatus eq 4`).
-    - Parses and prints the JSON response.
-
-### **DataverseClient.cs**
-- Uses the Dataverse SDK to interact with Dynamics 365:
-  - **`GetTimeOffTypes`**:
-    - Queries the `msdyn_timeofftype` table to retrieve all columns.
-    - Prints the retrieved entities.
-  - **`GetTimeOffRequests`**:
-    - Queries the `msdyn_wemrequest` table to fetch approved requests (`msdyn_requeststatus = 4`).
-    - Implements paging to handle large datasets.
-
----
-
-## **2. Workflow**
-1. **Authentication**:
-   - The application retrieves a certificate from the local store using its thumbprint.
-   - It uses the certificate to authenticate with Azure AD and acquire an access token.
-
-2. **Data Retrieval**:
-   - The access token is passed to both `RestClient` and `DataverseClient` methods.
-   - Each client fetches and displays data using its respective approach.
-
-3. **Error Handling**:
-   - Errors during authentication or data retrieval are caught and logged to the console.
-
----
-
-## **3. Comparison of REST and Dataverse client approaches**
-- **REST API**:
-  - Direct HTTP requests.
-  - Requires manual construction of URLs and parsing of JSON responses.
-- **Dataverse SDK**:
-  - Abstracts the underlying API calls.
-  - Provides a strongly-typed interface for querying and manipulating data.
+> [!NOTE]
+> You can also use the OData Web API to retrieve the data from Dataverse. This is not shown in the sample application. More information on the Web API can be found [here](https://learn.microsoft.com/power-apps/developer/data-platform/webapi/overview).
 
 [Return to top](#in-this-article)
